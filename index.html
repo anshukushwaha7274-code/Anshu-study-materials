@@ -5,163 +5,225 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Class 9 Study Hub | By Anshu</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
     body {
-      background-color: #f8fafc;
-      color: #0f172a;
+      background: #0f172a url('background.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #f8fafc;
       min-height: 100vh;
       padding: 40px 20px;
+      position: relative;
+    }
+
+    /* Glass Overlay for contrast */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.72);
+      backdrop-filter: blur(8px);
+      z-index: 0;
     }
 
     .container {
-      max-width: 900px;
+      max-width: 950px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     header {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 35px;
+      padding: 30px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
 
     header h1 {
-      font-size: 28px;
-      font-weight: 700;
-      color: #0f172a;
+      font-size: 32px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #a855f7, #3b82f6, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       letter-spacing: -0.5px;
     }
 
     header p {
       margin-top: 8px;
       font-size: 15px;
-      color: #64748b;
+      color: #cbd5e1;
+      font-weight: 500;
     }
 
     .search-box {
-      margin-bottom: 30px;
+      margin-bottom: 35px;
     }
 
     .search-box input {
       width: 100%;
-      padding: 14px 20px;
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
+      padding: 16px 22px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 14px;
       font-size: 15px;
-      color: #0f172a;
+      color: #f8fafc;
       outline: none;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-      transition: all 0.2s ease;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
     }
 
     .search-box input:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      border-color: #38bdf8;
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+    }
+
+    .search-box input::placeholder {
+      color: #94a3b8;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
     }
 
     .card {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      background: rgba(30, 41, 59, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 28px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
     .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    /* Medium Sized Icon Styling */
+    .subject-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .icon-bio {
+      background: rgba(236, 72, 153, 0.2);
+      color: #f472b6;
+      border: 1px solid rgba(236, 72, 153, 0.3);
+    }
+
+    .icon-phy {
+      background: rgba(56, 189, 248, 0.2);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
     }
 
     .badge {
-      display: inline-block;
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 11px;
+      font-weight: 700;
       padding: 4px 10px;
       border-radius: 20px;
-      width: fit-content;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
-    .badge-bio {
-      background: #fce7f3;
-      color: #be185d;
-    }
-
-    .badge-phy {
-      background: #e0f2fe;
-      color: #0369a1;
-    }
+    .badge-bio { background: rgba(236, 72, 153, 0.2); color: #f472b6; }
+    .badge-phy { background: rgba(56, 189, 248, 0.2); color: #38bdf8; }
 
     .card h3 {
-      margin: 14px 0 8px 0;
-      font-size: 18px;
-      font-weight: 600;
-      color: #0f172a;
+      font-size: 19px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 10px;
     }
 
     .card p {
       font-size: 14px;
-      color: #64748b;
-      line-height: 1.5;
+      color: #94a3b8;
+      line-height: 1.6;
       margin-bottom: 24px;
     }
 
     .btn-group {
       display: flex;
-      gap: 10px;
+      gap: 12px;
     }
 
     .btn {
       flex: 1;
       text-align: center;
-      padding: 10px 0;
+      padding: 12px 0;
       text-decoration: none;
       font-weight: 600;
       font-size: 14px;
-      border-radius: 8px;
-      transition: all 0.2s ease;
+      border-radius: 10px;
+      transition: all 0.3s ease;
       cursor: pointer;
       border: none;
-      box-sizing: border-box;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
 
     .btn-view {
-      background: #2563eb;
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
       color: #ffffff;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
     }
 
     .btn-view:hover {
-      background: #1d4ed8;
+      background: linear-gradient(135deg, #60a5fa, #3b82f6);
+      transform: translateY(-2px);
     }
 
     .btn-download {
-      background: #f1f5f9;
-      color: #334155;
-      border: 1px solid #cbd5e1;
+      background: rgba(255, 255, 255, 0.1);
+      color: #f8fafc;
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .btn-download:hover {
-      background: #e2e8f0;
-      color: #0f172a;
+      background: rgba(255, 255, 255, 0.2);
+      border-color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .btn svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
     }
   </style>
 </head>
@@ -170,7 +232,7 @@
   <div class="container">
     <header>
       <h1>Class 9 Study Hub</h1>
-      <p>Free Worksheets, HOTS Questions & Practice Papers • By Anshu</p>
+      <p>Free Worksheets, HOTS Questions & Notes • Created by Anshu</p>
     </header>
 
     <div class="search-box">
@@ -182,26 +244,44 @@
       <!-- Biology Card -->
       <div class="card">
         <div>
-          <span class="badge badge-bio">Biology</span>
+          <div class="card-header">
+            <!-- Medium SVG Icon -->
+            <div class="subject-icon icon-bio">
+              <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/><path d="M12 6V18"/><path d="M6 12H18"/></svg>
+            </div>
+            <span class="badge badge-bio">Biology</span>
+          </div>
           <h3>Chapter 6: Tissues (HOTS)</h3>
-          <p>15 Advanced NCERT & Exemplar analytical questions with clear section wise layout.</p>
+          <p>15 Advanced NCERT & Exemplar analytical questions with clear section-wise layout.</p>
         </div>
         <div class="btn-group">
           <a href="Tissue in Action.html" class="btn btn-view" target="_blank">View Online</a>
-          <button class="btn btn-download" onclick="forceDownload('Tissue in Action.html')">Download</button>
+          <button class="btn btn-download" onclick="forceDownload('Tissue in Action.html')">
+            <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            Download
+          </button>
         </div>
       </div>
 
       <!-- Physics Card -->
       <div class="card">
         <div>
-          <span class="badge badge-phy">Physics</span>
+          <div class="card-header">
+            <!-- Medium SVG Icon -->
+            <div class="subject-icon icon-phy">
+              <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <span class="badge badge-phy">Physics</span>
+          </div>
           <h3>Force & Laws of Motion</h3>
           <p>Important numericals, conceptual HOTS questions, and practice revision sheets.</p>
         </div>
         <div class="btn-group">
           <a href="How forces affect Motion.html" class="btn btn-view" target="_blank">View Online</a>
-          <button class="btn btn-download" onclick="forceDownload('How forces affect Motion.html')">Download</button>
+          <button class="btn btn-download" onclick="forceDownload('How forces affect Motion.html')">
+            <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            Download
+          </button>
         </div>
       </div>
 
@@ -224,27 +304,25 @@
     }
 
     function forceDownload(filePath) {
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", filePath, true);
-      xhr.responseType = "blob";
-      xhr.onload = function () {
-        if (xhr.status === 200) {
-          var urlCreator = window.URL || window.webkitURL;
-          var fileUrl = urlCreator.createObjectURL(this.response);
-          var tag = document.createElement('a');
-          tag.href = fileUrl;
-          tag.download = filePath;
-          document.body.appendChild(tag);
-          tag.click();
-          document.body.removeChild(tag);
-        } else {
-          window.location.href = filePath;
-        }
-      };
-      xhr.onerror = function() {
-        window.open(filePath, '_blank');
-      };
-      xhr.send();
+      fetch(filePath)
+        .then(response => {
+          if (!response.ok) throw new Error('Network error');
+          return response.blob();
+        })
+        .then(blob => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.style.display = 'none';
+          a.href = url;
+          a.download = filePath;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+        })
+        .catch(() => {
+          window.open(filePath, '_blank');
+        });
     }
   </script>
 
