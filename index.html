@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Class 9 Study Hub | By Anshu</title>
-  <!-- html2pdf Library for Client-Side PDF Generation -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
@@ -25,6 +23,7 @@
       position: relative;
     }
 
+    /* Glass Overlay for contrast */
     body::before {
       content: '';
       position: fixed;
@@ -127,6 +126,7 @@
       margin-bottom: 16px;
     }
 
+    /* Medium Sized Icon Styling */
     .subject-icon {
       width: 42px;
       height: 42px;
@@ -225,17 +225,6 @@
       height: 16px;
       fill: currentColor;
     }
-
-    /* Off-screen hidden container for PDF rendering */
-    #pdfRenderContainer {
-      position: absolute;
-      left: -9999px;
-      top: -9999px;
-      width: 800px;
-      background: #ffffff;
-      color: #000000;
-      padding: 20px;
-    }
   </style>
 </head>
 <body>
@@ -256,6 +245,7 @@
       <div class="card">
         <div>
           <div class="card-header">
+            <!-- Medium SVG Icon -->
             <div class="subject-icon icon-bio">
               <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/><path d="M12 6V18"/><path d="M6 12H18"/></svg>
             </div>
@@ -266,9 +256,9 @@
         </div>
         <div class="btn-group">
           <a href="Tissue in Action.html" class="btn btn-view" target="_blank">View Online</a>
-          <button class="btn btn-download" onclick="downloadAsPDF('Tissue in Action.html', 'Tissues_Worksheet.pdf')">
+          <button class="btn btn-download" onclick="forceDownload('Tissue in Action.html')">
             <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-            Download PDF
+            Download
           </button>
         </div>
       </div>
@@ -277,6 +267,7 @@
       <div class="card">
         <div>
           <div class="card-header">
+            <!-- Medium SVG Icon -->
             <div class="subject-icon icon-phy">
               <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
             </div>
@@ -287,18 +278,15 @@
         </div>
         <div class="btn-group">
           <a href="How forces affect Motion.html" class="btn btn-view" target="_blank">View Online</a>
-          <button class="btn btn-download" onclick="downloadAsPDF('How forces affect Motion.html', 'Force_and_Laws_of_Motion.pdf')">
+          <button class="btn btn-download" onclick="forceDownload('How forces affect Motion.html')">
             <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-            Download PDF
+            Download
           </button>
         </div>
       </div>
 
     </div>
   </div>
-
-  <!-- Hidden wrapper used by html2pdf -->
-  <div id="pdfRenderContainer"></div>
 
   <script>
     function filterCards() {
@@ -315,24 +303,22 @@
       }
     }
 
-    function downloadAsPDF(filePath, outputPdfName) {
+    function forceDownload(filePath) {
       fetch(filePath)
-        .then(response => response.text())
-        .then(htmlString => {
-          const container = document.getElementById('pdfRenderContainer');
-          container.innerHTML = htmlString;
-
-          const opt = {
-            margin:       0.5,
-            filename:     outputPdfName,
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2, useCORS: true },
-            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-          };
-
-          html2pdf().set(opt).from(container).save().then(() => {
-            container.innerHTML = '';
-          });
+        .then(response => {
+          if (!response.ok) throw new Error('Network error');
+          return response.blob();
+        })
+        .then(blob => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.style.display = 'none';
+          a.href = url;
+          a.download = filePath;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
         })
         .catch(() => {
           window.open(filePath, '_blank');
